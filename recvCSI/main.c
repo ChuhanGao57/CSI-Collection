@@ -54,6 +54,9 @@ int main(int argc, char* argv[])
     int         log_flag;
     unsigned char endian_flag;
     u_int16_t   buf_len;
+
+    int num_row, num_col;
+    int row_cnt, col_cnt;
     
     log_flag = 1;
     csi_status = (csi_struct*)malloc(sizeof(csi_struct));
@@ -118,6 +121,24 @@ int main(int argc, char* argv[])
              * fill the CSI matrix with the extracted CSI value
              */
             record_csi_payload(buf_addr, csi_status, data_buf, csi_matrix); 
+            int i,j,k;
+            i = sizeof(csi_matrix) / sizeof(csi_matrix[0]);
+            j = sizeof(csi_matrix[0]) / sizeof(csi_matrix[0][0]);
+            k = sizeof(csi_matrix[0][0]) / sizeof(csi_matrix[0][0][0]);
+            printf("%d,%d,%d\n",i,j,k);
+            /*
+            printf("CSI matrix size: %d x %d\n",num_row,num_col);
+            for(row_cnt = 0; row_cnt < num_row; row_cnt ++)
+            {
+                for(col_cnt = 0; col_cnt < num_col; col_cnt ++)
+                {
+                    printf("%d+%di ",csi_matrix[row_cnt][col_cnt].real,csi_matrix[row_cnt][col_cnt].imag);
+                }
+                printf("\n");
+            }
+            */
+
+
             
             /* Till now, we store the packet status in the struct csi_status 
              * store the packet payload in the data buffer
